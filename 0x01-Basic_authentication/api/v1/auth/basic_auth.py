@@ -23,7 +23,6 @@ class BasicAuth(Auth):
         if type(authorization_header) is not str:
             return None
         header_list = authorization_header.split()
-        print(header_list)
         if header_list[0] == 'Basic':
             return header_list[1]
         return None
@@ -56,7 +55,7 @@ class BasicAuth(Auth):
             return None, None
         if type(decoded_base64_authorization_header) is not str:
             return None, None
-        string = decoded_base64_authorization_header.split(':')
+        string = decoded_base64_authorization_header.split(':', maxsplit=1)
         if type(string) is list and len(string) == 2:
             return string[0], string[1]
         return None, None

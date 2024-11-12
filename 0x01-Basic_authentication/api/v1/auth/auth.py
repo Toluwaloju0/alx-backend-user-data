@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """A module to create the Auth class"""
 
+import re
 from flask import request
 from typing import TypeVar, List
 
@@ -18,6 +19,10 @@ class Auth:
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
         if path in excluded_paths or path + '/' in excluded_paths:
+            return False
+        for e_path in excluded_path:
+            path_format = re.compile(e_path)
+            if path_format.match(path):
             return False
         return True
 
