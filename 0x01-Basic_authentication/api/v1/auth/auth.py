@@ -8,6 +8,10 @@ from typing import TypeVar, List
 class Auth:
     """The class to implement the authentication system"""
 
+    def __init__(self):
+        """To initialize the class"""
+        pass
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """A function to check if a path require authentication"""
 
