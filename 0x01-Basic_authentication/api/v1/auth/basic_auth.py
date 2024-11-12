@@ -22,8 +22,8 @@ class BasicAuth(Auth):
             return None
         if type(authorization_header) is not str:
             return None
-
         header_list = authorization_header.split()
+        print(header_list)
         if header_list[0] == 'Basic':
             return header_list[1]
         return None
@@ -82,4 +82,10 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """
+        """A function to get a user if authorized"""
+
+        auth_str = self.authorization_header(request)
+        auth_pwd = self.extract_base64_authorization_header(str(auth_str))
+        auth_decoded_pwd = self.decode_base64_authorization_header(auth_pwd)
+        user_email, user_pwd = self.extract_user_credentials(auth_decoded_pwd)
+        return self.user_object_from_credentials(user_email, user_pwd)
