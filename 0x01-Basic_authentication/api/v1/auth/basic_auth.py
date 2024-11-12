@@ -85,7 +85,7 @@ class BasicAuth(Auth):
         """A function to get a user if authorized"""
 
         auth_str = self.authorization_header(request)
-        auth_pwd = self.extract_base64_authorization_header(str(auth_str))
+        auth_pwd = self.extract_base64_authorization_header(auth_str)
         auth_decoded_pwd = self.decode_base64_authorization_header(auth_pwd)
         user_email, user_pwd = self.extract_user_credentials(auth_decoded_pwd)
         return self.user_object_from_credentials(user_email, user_pwd)
