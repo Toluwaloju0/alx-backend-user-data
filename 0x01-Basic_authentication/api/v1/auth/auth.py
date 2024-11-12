@@ -23,7 +23,7 @@ class Auth:
         for e_path in excluded_path:
             path_format = re.compile(e_path)
             if path_format.match(path):
-            return False
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
