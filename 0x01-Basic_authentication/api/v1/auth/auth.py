@@ -20,7 +20,7 @@ class Auth:
             return True
         if path in excluded_paths or path + '/' in excluded_paths:
             return False
-        for e_path in excluded_path:
+        for e_path in excluded_paths:
             path_format = re.compile(e_path)
             if path_format.match(path):
                 return False
