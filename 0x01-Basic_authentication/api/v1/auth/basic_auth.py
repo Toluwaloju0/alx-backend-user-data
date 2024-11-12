@@ -2,6 +2,7 @@
 """A module for the basic auth class"""
 
 from api.v1.auth.auth import Auth
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -59,3 +60,26 @@ class BasicAuth(Auth):
         if type(string) is list and len(string) == 2:
             return string[0], string[1]
         return None, None
+
+    def user_object_from_credentials(
+        self,
+        user_email: str,
+        user_pwd: str
+    ) -> TypeVar('User'):
+        """To get the user instance from the DB
+        based on his email and password"""
+
+        from models.user import User
+
+        if user_email is None or user_pwd is None:
+            return None
+        if type(user_email) is not str or type(user_pwd) is not str:
+            return None
+        user_list = User.search({'email': user_email})
+        for user in user_list:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
