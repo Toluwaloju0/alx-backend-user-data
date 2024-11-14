@@ -18,10 +18,10 @@ def session_auth():
     if email is None or email == '':
         return jsonify({"error": "email missing"}), 400
     if pwd is None or pwd == '':
-        return jsonify({ "error": "password missing" }), 400
+        return jsonify({"error": "password missing"}), 400
     users = User.search({'email': email})
     if len(users) == 0:
-        return jsonify({ "error": "no user found for this email" }), 404
+        return jsonify({"error": "no user found for this email"}), 404
     for user in users:
         if user.is_valid_password(pwd):
             user_session = auth.create_session(user.id)
@@ -29,7 +29,8 @@ def session_auth():
             user = jsonify(user.to_json())
             user.set_cookie(getenv('SESSION_NAME'), user_session)
             return user
-    return jsonify({ "error": "wrong password" }), 401
+    return jsonify({"error": "wrong password"}), 401
+
 
 @app_views.route(
     '/auth_session/logout',
