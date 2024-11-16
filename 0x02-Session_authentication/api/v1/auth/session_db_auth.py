@@ -36,7 +36,7 @@ class SessionDBAuth(SessionExpAuth):
         """To destroy a user session when logout"""
 
         session_id = request.cookie.get('_my_session_id')
-    
+
         user_id = self.user_id_for_session_id(session_id)
         if user_id is None:
             return None

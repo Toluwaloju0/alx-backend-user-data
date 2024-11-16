@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 """A new class to store user sessions in the database"""
 
 from models.base import Base
