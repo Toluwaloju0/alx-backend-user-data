@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
+from typing import Iterable
 
 
 class DB:
@@ -30,7 +31,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """To add a new user to the database"""
 
         new_user = User(email=email, hashed_password=hashed_password)
@@ -39,7 +40,7 @@ class DB:
         self.__session.commit()
         return new_user
 
-    def find_user_by(self, *args, **kwargs):
+    def find_user_by(self, *args: Iterable, **kwargs: dict) -> User:
         """To  get a user using kwargs"""
 
         from sqlalchemy.orm.exc import NoResultFound
@@ -52,7 +53,7 @@ class DB:
         except (InvalidRequestError, NoResultFound):
             raise
 
-    def update_user(self, user_id, *args, **kwargs):
+    def update_user(self, user_id: int, *args: Iterable, **kwargs: dict) -> None:
         """A method to update a user instance"""
 
         # list the allowed attributes
