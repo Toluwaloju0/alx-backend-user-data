@@ -40,33 +40,33 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, *args: Iterable, **kwargs: dict) -> User:
-        """To  get a user
-        using kwargs"""
+    # def find_user_by(self, *args: Iterable, **kwargs: dict) -> User:
+    #     """To  get a user
+    #     using kwargs"""
 
-        from sqlalchemy.orm.exc import NoResultFound
-        from sqlalchemy.exc import InvalidRequestError
+    #     from sqlalchemy.orm.exc import NoResultFound
+    #     from sqlalchemy.exc import InvalidRequestError
 
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except (InvalidRequestError, NoResultFound):
-            raise
+    #     try:
+    #         user = self._session.query(User).filter_by(**kwargs).one()
+    #         return user
+    #     except (InvalidRequestError, NoResultFound):
+    #         raise
 
-    def update_user(self, user_id: int, *args: Iterable, **kwargs: dict) -> None:
-        """A method to update a user instance"""
+    # def update_user(self, user_id: int, *args: Iterable, **kwargs: dict) -> None:
+    #     """A method to update a user instance"""
 
-        # list the allowed attributes
-        attributes = [
-            'id', 'email', 'hashed_password',
-            'session_id', 'reset_token'
-        ]
+    #     # list the allowed attributes
+    #     attributes = [
+    #         'id', 'email', 'hashed_password',
+    #         'session_id', 'reset_token'
+    #     ]
 
-        user = self.find_user_by(id=user_id)
-        for key, value in kwargs.items():
-            if key in attributes:
-                setattr(user, key, value)
-            else:
-                raise ValueError
-        self._session.commit()
-        return None
+    #     user = self.find_user_by(id=user_id)
+    #     for key, value in kwargs.items():
+    #         if key in attributes:
+    #             setattr(user, key, value)
+    #         else:
+    #             raise ValueError
+    #     self._session.commit()
+    #     return None
