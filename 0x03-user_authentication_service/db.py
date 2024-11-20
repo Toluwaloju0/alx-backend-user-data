@@ -32,23 +32,23 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """To add a new user to the database"""
+        """To add a new user
+        to the database"""
 
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session
-        self.__session.add(new_user)
-        self.__session.commit()
+        self._session.add(new_user)
+        self._session.commit()
         return new_user
 
     def find_user_by(self, *args: Iterable, **kwargs: dict) -> User:
-        """To  get a user using kwargs"""
+        """To  get a user
+        using kwargs"""
 
         from sqlalchemy.orm.exc import NoResultFound
         from sqlalchemy.exc import InvalidRequestError
 
-        self._session
         try:
-            user = self.__session.query(User).filter_by(**kwargs).one()
+            user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except (InvalidRequestError, NoResultFound):
             raise
@@ -68,5 +68,5 @@ class DB:
                 setattr(user, key, value)
             else:
                 raise ValueError
-        self.__session.commit()
+        self._session.commit()
         return None
