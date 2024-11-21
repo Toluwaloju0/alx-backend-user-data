@@ -37,7 +37,9 @@ class DB:
 
         if email is None or hashed_password is None:
             return None
-
+        if type(email) is not str or type(hashed_password) isnot str:
+            return None
+            
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
