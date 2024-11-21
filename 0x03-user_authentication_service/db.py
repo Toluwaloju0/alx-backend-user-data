@@ -39,7 +39,7 @@ class DB:
             return None
         if type(email) is not str or type(hashed_password) is not str:
             return None
-            
+
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
@@ -58,7 +58,7 @@ class DB:
     #     except (InvalidRequestError, NoResultFound):
     #         raise
 
-    # def update_user(self, user_id: int, *args: Iterable, **kwargs: dict) -> None:
+    # def update_user(self, user_id: int, *args, **kwargs: dict) -> None:
     #     """A method to update a user instance"""
 
     #     # list the allowed attributes
