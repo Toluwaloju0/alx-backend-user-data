@@ -53,7 +53,7 @@ class DB:
         """To  get a user
         using kwargs"""
 
-        from sqlalchemy.exc import NoResultFound
+        from sqlalchemy.orm.exc import NoResultFound
         from sqlalchemy.exc import InvalidRequestError
 
         # Make sure all keys are in the list of accecpted attributes
