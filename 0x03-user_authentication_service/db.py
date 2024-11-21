@@ -49,14 +49,13 @@ class DB:
         """To  get a user
         using kwargs"""
 
-        from sqlalchemy.orm.exc import NoResultFound
-        from sqlalchemy.exc import InvalidRequestError
+        # from sqlalchemy.orm.exc import NoResultFound
+        # from sqlalchemy.exc import InvalidRequestError
 
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except (InvalidRequestError, NoResultFound):
-            raise
+        user = self._session.query(User).filter_by(**kwargs).one()
+        return user
+        # except (InvalidRequestError, NoResultFound):
+        #     raise
 
     # def update_user(self, user_id: int, *args, **kwargs: dict) -> None:
     #     """A method to update a user instance"""
