@@ -66,15 +66,15 @@ class DB:
             raise NoResultFound
         return user
 
-    # def update_user(self, user_id: int, *args, **kwargs: dict) -> None:
-    #     """A method to update a user instance"""
+    def update_user(self, user_id: int, *args, **kwargs: dict) -> None:
+        """A method to update a user instance"""
 
-    #     # list the allowed attributes
-    #     user = self.find_user_by(id=user_id)
-    #     for key, value in kwargs.items():
-    #         if key in self.attributes:
-    #             setattr(user, key, value)
-    #         else:
-    #             raise ValueError
-    #     self._session.commit()
-    #     return None
+        # list the allowed attributes
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if key in self.attributes:
+                setattr(user, key, value)
+            else:
+                raise ValueError
+        self._session.commit()
+        return None
