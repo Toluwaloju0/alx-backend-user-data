@@ -18,7 +18,7 @@ def home():
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def new_user():
+def users():
     """To create a new user"""
 
     email = request.form['email']
