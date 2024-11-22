@@ -25,13 +25,12 @@ class Auth:
         """A method to register a new user"""
 
         try:
-            self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
+            user = self._db.find_user_by(email=email)
+            raise ValueError(f"User {user.email} already exists")
         except NoResultFound:
-            user = self._db.add_user(email, _hash_password(password))
-            return user
+            return self._db.add_user(email, password)
 
-    def valid_login(self, email, password) -> bool:
+    def valid_login(self, email: str, password: str) -> bool:
         """ A method to check if the password for a user is correct"""
 
         try:
@@ -47,7 +46,7 @@ class Auth:
 
         return str(uuid.uuid4())
 
-    def create_session(self, email) -> str:
+    def create_session(self, email: str) -> str:
         """A method to create a session id for a user"""
 
         try:
