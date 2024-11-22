@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """A module to hash a password"""
 
+import uuid
 from bcrypt import hashpw, gensalt, checkpw
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
@@ -12,6 +13,12 @@ def _hash_password(password: str) -> bytes:
     """To hash a password"""
 
     return hashpw(password.encode('utf-8'), gensalt())
+
+
+def _generate_uuid() -> str:
+    """A function to create a uuid"""
+
+    return str(uuid.uuid4())
 
 
 class Auth:
@@ -39,17 +46,12 @@ class Auth:
         except NoResultFound:
             return False
 
-    def _generate_uuid(self) -> str:
-        import uuid
-
-        return str(uuid.uuid4())
-
     def create_session(self, email: str) -> str:
         """A method to create a session id for a user"""
 
         try:
             user = self._db.find_user_by(email=email)
-            session_id = self._generate_uuid()
+            session_id = _generate_uuid()
             self._db.update_user(user.id, session_id=session_id)
 
             return session_id
@@ -78,7 +80,7 @@ class Auth:
         try:
             # get the user using DB.find_user_by
             user = self._db.find_user_by(email=email)
-            reset_id = self._generate_uuid()
+            reset_id = _generate_uuid()
             self._db.update(user.id, reset_token=reset_id)
             return reset_id
 
