@@ -49,7 +49,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, *args: Iterable, **kwargs: dict) -> User:
+    def find_user_by(self, *args, **kwargs) -> User:
         """To  get a user
         using kwargs"""
 
@@ -66,7 +66,7 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, user_id: int, *args, **kwargs: dict) -> None:
+    def update_user(self, user_id: int, *args, **kwargs) -> None:
         """A method to update a user instance"""
 
         # list the allowed attributes
