@@ -35,10 +35,8 @@ class Auth:
 
         try:
             user = self._db.find_user_by(email=email)
-            if checkpw(password.encode('utf-8'), user.hashed_password):
-                return True
-            return False
-        except (NoResultFound, InvalidRequestError):
+            return checkpw(password.encode('utf-8'), user.hashed_password)
+        except (NoResultFound):
             return False
 
     def _generate_uuid(self) -> str:
