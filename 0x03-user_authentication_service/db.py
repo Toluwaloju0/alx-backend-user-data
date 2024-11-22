@@ -56,15 +56,11 @@ class DB:
         from sqlalchemy.orm.exc import NoResultFound
         from sqlalchemy.exc import InvalidRequestError
 
-        # Make sure all keys are in the list of accecpted attributes
-        for key in kwargs.keys():
-            if key not in self.attributes:
-                raise InvalidRequestError
-
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if user is None:
-            raise NoResultFound
-        return user
+        try:
+            user = self._session.query(User).filter_by(**kwargs).one()
+            return user
+        except (NoResultFound, InvalidRequestError):
+            raise
 
     def update_user(self, user_id: int, *args, **kwargs) -> None:
         """A method to update a user instance"""
