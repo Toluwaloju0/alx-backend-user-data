@@ -58,7 +58,7 @@ class Auth:
         except (NoResultFound, InvalidRequestError):
             return None
 
-    def get_user_from_session_id(self, session_id):
+    def get_user_from_session_id(self, session_id: str) -> None:
         """To get a user from his session id"""
 
         if session_id is None:
@@ -74,7 +74,7 @@ class Auth:
         self._db.update_user(user_id, session_id=None)
         return None
 
-    def get_reset_password_token(self, email) -> str:
+    def get_reset_password_token(self, email: str) -> str:
         """A method to create a user reset token uuid"""
 
         try:
@@ -87,7 +87,7 @@ class Auth:
         except (NoResultFound, InvalidRequestError):
             raise ValueError
 
-    def update_password(self, reset_token, password) -> None:
+    def update_password(self, reset_token: str, password: str) -> None:
         """A method to update the user password"""
 
         try:
